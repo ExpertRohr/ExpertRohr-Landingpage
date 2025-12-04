@@ -440,7 +440,7 @@ app.get("/api/reviews", async (req, res) => {
 app.use(express.static(distPath));
 
 // Alle unbekannten Routen an React (index.html) geben
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
