@@ -21,6 +21,9 @@ const __dirname = path.dirname(__filename);
 // Pfad zu deinem Logo
 const logoPath = path.join(__dirname, "images", "ExpertRohr-min.png");
 
+// 🔥 NEU: Pfad zu deinem Frontend-Build (Vite → dist)
+const distPath = path.join(__dirname, "dist");
+
 // Farben passend zum Logo
 const COLORS = {
   navy: "#0b274a",
@@ -87,6 +90,9 @@ const transporter = nodemailer.createTransport({
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
+console.log("TELEGRAM_BOT_TOKEN gesetzt:", !!TELEGRAM_BOT_TOKEN);
+console.log("TELEGRAM_CHAT_ID gesetzt:", !!TELEGRAM_CHAT_ID);
 
 async function sendTelegramMessage(text) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
@@ -425,9 +431,21 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
+/* =========================================================
+   🔥 STATIC FRONTEND + SPA-FALLBACK
+   (WICHTIG FÜR RENDER & LIVE-BETRIEB)
+   ========================================================= */
+
+// Statische Dateien aus dem Vite-Build ausliefern
+app.use(express.static(distPath));
+
+// Alle unbekannten Routen an React (index.html) geben
+app.get("*", (req, res) => {
+  res.sendFile(path.join(distPath, "index.html"));
+});
+
 // Server starten
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server läuft auf Port ${port}`);
 });
-
