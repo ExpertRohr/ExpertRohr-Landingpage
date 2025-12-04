@@ -431,16 +431,13 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
-/* =========================================================
-   🔥 STATIC FRONTEND + SPA-FALLBACK
-   (WICHTIG FÜR RENDER & LIVE-BETRIEB)
-   ========================================================= */
-
+// 🔥 STATIC FRONTEND + SPA-FALLBACK
 // Statische Dateien aus dem Vite-Build ausliefern
 app.use(express.static(distPath));
 
 // Alle unbekannten Routen an React (index.html) geben
-app.get("/*", (req, res) => {
+// Express 5 / path-to-regexp v6: Catch-all so schreiben:
+app.get("/:path(*)", (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
@@ -449,3 +446,4 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server läuft auf Port ${port}`);
 });
+
