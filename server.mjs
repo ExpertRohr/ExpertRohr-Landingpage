@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 // Pfad zu deinem Logo
 const logoPath = path.join(__dirname, "images", "ExpertRohr-min.png");
 
-// 🔥 NEU: Pfad zu deinem Frontend-Build (Vite → dist)
+// 🔥 Pfad zu deinem Frontend-Build (Vite → dist)
 const distPath = path.join(__dirname, "dist");
 
 // Farben passend zum Logo
@@ -305,7 +305,6 @@ ${problem || "-"}
     );
 
     // ---------- 2) Danke-Mail an Kunden ----------
-
     if (email) {
       const thankContent = `
         <p style="font-size:14px;line-height:1.7;color:${COLORS.textMuted};margin:0 0 12px 0;">
@@ -431,13 +430,16 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
-// 🔥 STATIC FRONTEND + SPA-FALLBACK
-// Statische Dateien aus dem Vite-Build ausliefern
+/* =========================================================
+   🔥 STATIC FRONTEND + SPA-FALLBACK
+   ========================================================= */
+
+// 1) Statische Dateien aus dem Vite-Build ausliefern
 app.use(express.static(distPath));
 
-// Alle unbekannten Routen an React (index.html) geben
-// Express 5 / path-to-regexp v6: Catch-all so schreiben:
-app.get("/:path(*)", (req, res) => {
+// 2) Alle übrigen Routen an React geben (SPA-Fallback)
+//    WICHTIG: Regex benutzen, nicht "*", damit path-to-regexp nicht meckert.
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
 });
 
@@ -446,4 +448,3 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server läuft auf Port ${port}`);
 });
-
