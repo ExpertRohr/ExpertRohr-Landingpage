@@ -144,7 +144,7 @@ const buildHtml = (title, introHtml, contentHtml) => `
         </td>
         <td align="right" style="font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11px;color:#e5e7eb;vertical-align:middle;">
           24/7 Notdienst · Berlin &amp; Brandenburg<br/>
-          Tel.: <strong style="color:#ffffff;">030-12345678</strong>
+          Tel.: <strong style="color:#ffffff;">030-23323873</strong>
         </td>
       </tr>
     </table>
@@ -340,7 +340,7 @@ ${problem || "-"}
 
         <p style="font-size:13px;line-height:1.7;color:${COLORS.textMuted};margin-top:18px;">
           Bei dringenden Notfällen erreichen Sie unseren 24/7-Notdienst jederzeit unter:<br/>
-          <span style="font-size:15px;font-weight:700;color:${COLORS.red};">📞 030-12345678</span>
+          <span style="font-size:15px;font-weight:700;color:${COLORS.red};">📞 030-23323873</span>
         </p>
       `;
 
