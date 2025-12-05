@@ -1,6 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Toaster } from "sonner";
 import CookieBanner from "./CookieBanner";
+import LogoImage from "./assets/ExpertRohr-min.png";
+import heroBackground from "./assets/HeroHintergrund.png";
+import auto2 from "./assets/auto2.png";
+import expertRohrLogo from "./assets/ExpertRohr-min.png";
+import kamera from "./assets/kamera.png";
+import ref14 from "./assets/ref14.png";
+import ref13 from "./assets/ref13.png";
+import ref9 from "./assets/ref9.png";
+import ref2 from "./assets/ref2.png";
+import ref7 from "./assets/ref7.png";
+import ref15 from "./assets/ref15.png";
+import ref17 from "./assets/ref17.png";
+import ref8 from "./assets/ref8.png";
+import ref5 from "./assets/ref5.png";
+import ref18 from "./assets/ref18.png";
+import expertLogo from "./assets/ExpertRohr-min.png";
+
+
+
+
 
 /* ===========================
    FAQ ITEM KOMPONENTE
@@ -47,11 +67,12 @@ function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+
           {/* Logo + Name */}
           <div className="flex items-center">
             <div
               className="w-10 h-10 bg-cover bg-center rounded-lg flex items-center justify-center mr-3"
-              style={{ backgroundImage: "url(/images/ExpertRohr-min.png)" }}
+              style={{ backgroundImage: `url(${LogoImage})` }}
             />
             <h1 className="text-xl font-bold text-gray-900">ExpertRohr</h1>
           </div>
@@ -94,7 +115,7 @@ function Header() {
           {/* Notdienst-Button rechts */}
           <div className="flex items-center">
             <a
-              href="tel:030-12345678"
+              href="tel:030-23323873"
               className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl"
             >
               📞 Notdienst
@@ -166,7 +187,7 @@ return (
       text-white
     "
     style={{
-      backgroundImage: `url('/images/HeroHintergrund.png')`,
+  backgroundImage: `url(${heroBackground})`,
     }}
   >
     {/* dunkles Overlay */}
@@ -213,51 +234,76 @@ return (
             <li>• In 30–60 Min. meist vor Ort*</li>
           </ul>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              id="hero-call"
-              href="tel:030-12345678"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-2xl hover:scale-[1.04] text-center"
-            >
-              📞 Notdienst anrufen: 030-12345678
-            </a>
-            <a
-              href="#contact"
-              className="bg-white/10 text-blue-300 px-8 py-4 rounded-xl font-bold text-lg border-2 border-blue-400/40 hover:bg-white/20 transition-all shadow-lg text-center"
-            >
-              Online Termin &amp; Angebot
-            </a>
+{/* CTAs */}
+<div className="flex flex-col sm:flex-row gap-4">
+  {/* PREMIUM CALL CTA — ICON ENTFERNT */}
+  <a
+    id="hero-call"
+    href="tel:030-23323873"
+    className="
+      bg-gradient-to-r from-blue-600 to-blue-500
+      hover:from-blue-700 hover:to-blue-600
+      text-white px-10 py-5
+      rounded-2xl font-bold
+      transition-all shadow-xl hover:shadow-2xl hover:scale-[1.05]
+      flex flex-col items-center justify-center
+      border border-blue-400/30
+      text-center
+    "
+  >
+    <span className="text-sm font-semibold opacity-90">
+      Notdienst anrufen:
+    </span>
+    <span className="text-2xl font-extrabold tracking-wide mt-1">
+      030-23323873
+    </span>
+  </a>
+
+  {/* ONLINE TERMIN CTA */}
+  <a
+    href="#contact"
+    className="
+      bg-white/10 text-blue-300
+      px-10 py-5 rounded-2xl font-bold text-lg
+      border-2 border-blue-400/40
+      hover:bg-white/20 hover:border-blue-300
+      transition-all shadow-lg hover:shadow-xl hover:scale-[1.03]
+      flex items-center justify-center
+      text-center
+    "
+  >
+    Online Termin &amp; Angebot
+  </a>
           </div>
         </div>
 
-        {/* RECHTER BEREICH – AUTO + BADGES (neu platziert) */}
-        <div className="relative flex flex-col items-end gap-4">
-          {/* Auto – responsive Größen & Position + FLOAT */}
-          <div className="relative w-full flex justify-center lg:justify-end">
-            <div className="relative lg:animate-float">
-              <img
-                src="/images/auto2.png"
-                alt="Expert Rohr Einsatzfahrzeug"
-                className="
-                  w-[420px]          /* Mobile */
-                  sm:w-[340px]
-                  md:w-[460px]
-                  lg:w-[760px]       /* Desktop */
-                  xl:w-[860px]
-                  2xl:w-[920px]
+{/* RECHTER BEREICH – AUTO + BADGES (neu platziert) */}
+<div className="relative flex flex-col items-end gap-4">
+  {/* Auto – responsive Größen & Position + FLOAT */}
+  <div className="relative w-full flex justify-center lg:justify-end">
+    <div className="relative lg:animate-float">
+      <img
+        src={auto2}
+        alt="Expert Rohr Einsatzfahrzeug"
+        className="
+          w-[420px]          /* Mobile */
+          sm:w-[340px]
+          md:w-[460px]
+          lg:w-[760px]       /* Desktop */
+          xl:w-[860px]
+          2xl:w-[920px]
 
-                  max-w-none
-                  object-contain
-                  drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
-                  -mt-2
-                  translate-x-0
-                  lg:translate-x-[80px]
-                  xl:translate-x-[200px]
-                "
-              />
-            </div>
-          </div>
+          max-w-none
+          object-contain
+          drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
+          -mt-2
+          translate-x-0
+          lg:translate-x-[80px]
+          xl:translate-x-[200px]
+        "
+      />
+    </div>
+  </div>
 
           {/* kompakte Badge-Leiste direkt unter dem Auto */}
           <div
@@ -468,10 +514,7 @@ function ServicesSection() {
 =========================== */
 function WhyExpertSection() {
   return (
-    <section
-      id="about"
-      className="py-16 lg:py-20 bg-white"
-    >
+    <section id="about" className="py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* LINKES PANEL – LOGO / TRUST-CARD */}
@@ -479,7 +522,7 @@ function WhyExpertSection() {
             <div className="rounded-3xl bg-gradient-to-br from-slate-50 via-white to-slate-100 shadow-xl border border-slate-100 p-10 lg:p-12">
               <div className="flex items-center justify-center h-full">
                 <img
-                  src="/images/ExpertRohr-min.png"
+                  src={expertRohrLogo}
                   alt="ExpertRohr Logo"
                   className="w-full max-w-md object-contain"
                 />
@@ -531,8 +574,8 @@ function WhyExpertSection() {
                     Soforthilfe in 30–60 Min. vor Ort*
                   </h3>
                   <p className="mt-1 text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Im Notfall sind unsere Techniker meist innerhalb einer Stunde
-                    bei Ihnen – auch abends und am Wochenende.
+                    Im Notfall sind unsere Techniker meist innerhalb einer
+                    Stunde bei Ihnen – auch abends und am Wochenende.
                   </p>
                 </div>
               </div>
@@ -598,6 +641,7 @@ function WhyExpertSection() {
     </section>
   );
 }
+
 
 
 /* ===========================
@@ -812,7 +856,7 @@ function EmergencyNotdienstSection() {
             <div className="mt-6 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
               {/* Primärer Call CTA */}
               <a
-                href="tel:030-12345678"
+                href="tel:030-23323873"
                 className="
                   group
                   flex-1
@@ -877,13 +921,13 @@ function EmergencyNotdienstSection() {
             </p>
           </div>
 
-          {/* Rechte Seite – Image / Visual */}
-          <div className="flex justify-center">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white max-w-md w-full animate-float">
-              <img
-                src="/images/kamera.png"
-                alt="Rohrinspektion mit moderner Kameratechnik"
-                className="w-full h-full object-cover"
+{/* Rechte Seite – Image / Visual */}
+<div className="flex justify-center">
+  <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white max-w-md w-full animate-float">
+    <img
+      src={kamera}
+      alt="Rohrinspektion mit moderner Kameratechnik"
+      className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/10 via-transparent to-transparent" />
               <div className="absolute bottom-3 left-3 right-3">
@@ -919,56 +963,57 @@ type LiveShot = {
 
 const LIVE_SHOTS: LiveShot[] = [
   {
-    src: "/images/ref14.png",
+    src: ref14,
     alt: "Grundstücksleitung im Außenbereich",
     label: "Grundstücksleitung im Außenbereich",
   },
   {
-    src: "/images/ref13.png",
+    src: ref13,
     alt: "Dachleitung mit Rohrsanierung",
     label: "Dachleitung mit Rohrsanierung",
   },
   {
-    src: "/images/ref9.png",
+    src: ref9,
     alt: "Kellerleitung im Mehrfamilienhaus",
     label: "Kellerleitung im Mehrfamilienhaus",
   },
   {
-    src: "/images/ref2.png",
+    src: ref2,
     alt: "Küche – Rohrverstopfung gelöst",
     label: "Küche – Rohrverstopfung gelöst",
   },
   {
-    src: "/images/ref7.png",
+    src: ref7,
     alt: "Freigelegte Leitung im Außenbereich",
     label: "Freigelegte Leitung im Außenbereich",
   },
   {
-    src: "/images/ref15.png",
+    src: ref15,
     alt: "Sanierung im Kellerbereich",
     label: "Sanierung im Kellerbereich",
   },
   {
-    src: "/images/ref17.png",
+    src: ref17,
     alt: "Zugangsschacht mit Rohrleitung",
     label: "Zugangsschacht mit Rohrleitung",
   },
   {
-    src: "/images/ref8.png",
+    src: ref8,
     alt: "Rohrsystem im Innenbereich",
     label: "Rohrsystem im Innenbereich",
   },
   {
-    src: "/images/ref5.png",
+    src: ref5,
     alt: "Sanierung im Wohnungsbereich",
     label: "Sanierung im Wohnungsbereich",
   },
   {
-    src: "/images/ref18.png",
+    src: ref18,
     alt: "Abwasserleitung im Technikraum",
     label: "Abwasserleitung im Technikraum",
   },
 ];
+
 
 const LiveEinsatzSection: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -1371,7 +1416,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                         setFormData({ ...formData, phone: e.target.value })
                       }
                       className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
-                      placeholder="z. B. 030-12345678"
+                      placeholder="z. B. 030-23323873"
                     />
                     <p className="mt-1 text-xs text-gray-400">
                       Wir melden uns nur zu dieser Anfrage – kein Spam, kein
@@ -1483,13 +1528,13 @@ const handleSubmit = async (e: React.FormEvent) => {
               </ul>
 
               <a
-                href="tel:030-12345678"
+                href="tel:030-23323873"
                 className="relative z-[1] group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white text-red-600 px-6 py-3.5 text-base sm:text-lg font-bold shadow-[0_10px_25px_rgba(0,0,0,0.25)] transition-all duration-200 hover:shadow-[0_16px_35px_rgba(0,0,0,0.35)] hover:scale-[1.03]"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-50 text-lg">
                   📞
                 </span>
-                <span>Sofort-Notdienst anrufen: 030-12345678</span>
+                <span>Sofort-Notdienst anrufen: 030-23323873</span>
               </a>
 
               <div className="mt-4 text-xs sm:text-sm opacity-95 relative z-[1]">
@@ -1506,7 +1551,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <div className="space-y-4 text-gray-800 text-sm sm:text-base">
                 <div className="flex items-center space-x-3">
                   <span className="text-blue-600 text-lg">📞</span>
-                  <span>030-12345678</span>
+                  <span>030-23323873</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-blue-600 text-lg">📧</span>
@@ -1564,6 +1609,7 @@ function Footer({
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* ÖFFNUNGSZEITEN */}
         <div className="text-center mb-10">
           <h4 className="text-lg font-semibold mb-2">Öffnungszeiten</h4>
@@ -1572,29 +1618,43 @@ function Footer({
 
         {/* GRID – 3 SPALTEN */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:items-start md:justify-items-start">
+
           {/* SPALTE 1 – Branding */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-4">
-              <div
-                className="w-10 h-10 bg-cover bg-center rounded-lg mr-3"
-                style={{ backgroundImage: "url(/images/ExpertRohr-min.png)" }}
-              ></div>
+
+              {/* Logo Image statt BackgroundImage */}
+              <img
+                src={expertLogo}
+                alt="ExpertRohr Logo"
+                className="w-10 h-10 rounded-lg mr-3 object-cover"
+              />
+
               <h3 className="text-xl font-bold">ExpertRohr</h3>
             </div>
 
             <p className="text-gray-400 mb-4 text-center md:text-left">
-              Ihr zuverlässiger Partner für professionelle Rohrreinigung in Berlin
-              und Brandenburg.
+              Ihr zuverlässiger Partner für professionelle Rohrreinigung in
+              Berlin und Brandenburg.
             </p>
 
             <div className="flex space-x-4 justify-center md:justify-start">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Instagram
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Google
               </a>
             </div>
@@ -1616,13 +1676,13 @@ function Footer({
           <div className="text-center md:text-left">
             <h4 className="text-lg font-semibold mb-4">Kontakt</h4>
             <div className="space-y-2 text-gray-400">
-              <div>📞 030-12345678</div>
+              <div>📞 030-23323873</div>
               <div>📧 info@expertrohr.de</div>
               <div>🕒 24/7 Notdienst</div>
 
               <div className="mt-4 flex justify-center md:justify-start">
                 <a
-                  href="tel:030-12345678"
+                  href="tel:030-23323873"
                   className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all inline-block"
                 >
                   Jetzt anrufen
@@ -1750,7 +1810,7 @@ export default function App() {
       {showStickyCall && (
         <div className="fixed inset-x-0 bottom-3 z-50 px-4 md:hidden">
           <a
-            href="tel:030-12345678"
+            href="tel:030-23323873"
             aria-label="Jetzt Notdienst anrufen"
             className="group w-full flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-5 py-3.5 text-white shadow-[0_12px_30px_rgba(249,115,22,0.45)] hover:shadow-[0_16px_40px_rgba(220,38,38,0.6)] transition-all duration-200 active:scale-[0.97]"
           >
