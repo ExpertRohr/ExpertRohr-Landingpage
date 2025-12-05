@@ -1316,8 +1316,11 @@ const handleSubmit = async (e: React.FormEvent) => {
   setSuccessMessage(null);
 
   try {
-    const API_BASE_URL =
-      import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    // 👇 Lokal (DEV): API über localhost:5000
+    // 👇 Live (PROD): gleiches Origin -> leere Base-URL, wir rufen einfach /send-email auf
+    const API_BASE_URL = import.meta.env.DEV
+      ? (import.meta.env.VITE_API_BASE_URL || "http://localhost:5000")
+      : "";
 
     const response = await fetch(`${API_BASE_URL}/send-email`, {
       method: "POST",
