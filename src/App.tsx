@@ -3,22 +3,23 @@ import { Toaster } from "sonner";
 import CookieBanner from "./CookieBanner";
 
 /* Bilder */
-import expertRohrLogo from "./assets/ExpertRohr-min.png";  // <-- wieder so nennen
-import heroBackground from "./assets/HeroHintergrund.png";
-import auto2 from "./assets/auto2.png";
-import cameraImage from "./assets/Kamera.png";
+import expertRohrLogo from "./assets/ExpertRohr-min.webp";
+import heroBackground from "./assets/HeroHintergrund.webp";
+import auto2 from "./assets/auto2.webp";
+import cameraImage from "./assets/Kamera.webp";
 
 /* Referenzen */
-import ref14 from "./assets/ref14.png";
-import ref13 from "./assets/ref13.png";
-import ref9 from "./assets/ref9.png";
-import ref2 from "./assets/ref2.png";
-import ref7 from "./assets/ref7.png";
-import ref15 from "./assets/ref15.png";
-import ref17 from "./assets/ref17.png";
-import ref8 from "./assets/ref8.png";
-import ref5 from "./assets/ref5.png";
-import ref18 from "./assets/ref18.png";
+import ref14 from "./assets/ref14.webp";
+import ref13 from "./assets/ref13.webp";
+import ref9 from "./assets/ref9.webp";
+import ref2 from "./assets/ref2.webp";
+import ref7 from "./assets/ref7.webp";
+import ref15 from "./assets/ref15.webp";
+import ref17 from "./assets/ref17.webp";
+import ref8 from "./assets/ref8.webp";
+import ref5 from "./assets/ref5.webp";
+import ref18 from "./assets/ref18.webp";
+
 
 
 /* ===========================
