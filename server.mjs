@@ -19,7 +19,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Pfad zu deinem Logo
-const logoPath = path.join(__dirname, "images", "ExpertRohr-min.png");
+const logoPath = path.join(__dirname, "src", "assets", "ExpertRohr-min.webp");
 
 // 🔥 Pfad zu deinem Frontend-Build (Vite → dist)
 const distPath = path.join(__dirname, "dist");
