@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Toaster } from "sonner";
 import CookieBanner from "./CookieBanner";
-import LogoImage from "./assets/ExpertRohr-min.png";
+
+/* Bilder */
+import expertRohrLogo from "./assets/ExpertRohr-min.png";  // <-- wieder so nennen
 import heroBackground from "./assets/HeroHintergrund.png";
 import auto2 from "./assets/auto2.png";
-import expertRohrLogo from "./assets/ExpertRohr-min.png";
-import kamera from "./assets/kamera.png";
+import cameraImage from "./assets/Kamera.png";
+
+/* Referenzen */
 import ref14 from "./assets/ref14.png";
 import ref13 from "./assets/ref13.png";
 import ref9 from "./assets/ref9.png";
@@ -16,10 +19,6 @@ import ref17 from "./assets/ref17.png";
 import ref8 from "./assets/ref8.png";
 import ref5 from "./assets/ref5.png";
 import ref18 from "./assets/ref18.png";
-import expertLogo from "./assets/ExpertRohr-min.png";
-
-
-
 
 
 /* ===========================
@@ -67,12 +66,11 @@ function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-
           {/* Logo + Name */}
           <div className="flex items-center">
             <div
               className="w-10 h-10 bg-cover bg-center rounded-lg flex items-center justify-center mr-3"
-              style={{ backgroundImage: `url(${LogoImage})` }}
+              style={{ backgroundImage: `url(${expertRohrLogo})` }}
             />
             <h1 className="text-xl font-bold text-gray-900">ExpertRohr</h1>
           </div>
@@ -837,7 +835,9 @@ function EmergencyNotdienstSection() {
                 <li className="flex gap-2">
                   <span className="mt-[3px] text-green-500">✔</span>
                   <span>
-                    <span className="font-semibold">Saubere &amp; schonende Arbeitsweise</span>{" "}
+                    <span className="font-semibold">
+                      Saubere &amp; schonende Arbeitsweise
+                    </span>{" "}
                     – wir hinterlassen alles ordentlich
                   </span>
                 </li>
@@ -921,15 +921,17 @@ function EmergencyNotdienstSection() {
             </p>
           </div>
 
-{/* Rechte Seite – Image / Visual */}
-<div className="flex justify-center">
-  <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white max-w-md w-full animate-float">
-    <img
-      src={kamera}
-      alt="Rohrinspektion mit moderner Kameratechnik"
-      className="w-full h-full object-cover"
+          {/* Rechte Seite – Image / Visual */}
+          <div className="flex justify-center">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white max-w-md w-full animate-float">
+              <img
+                src={cameraImage}
+                alt="Rohrinspektion mit moderner Kameratechnik"
+                className="w-full h-full object-cover"
               />
+
               <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+
               <div className="absolute bottom-3 left-3 right-3">
                 <div className="bg-black/65 text-white text-xs sm:text-sm rounded-xl px-4 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
                   <span className="font-semibold">
@@ -942,6 +944,7 @@ function EmergencyNotdienstSection() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -1625,7 +1628,7 @@ function Footer({
 
               {/* Logo Image statt BackgroundImage */}
               <img
-                src={expertLogo}
+                src={expertRohrLogo}
                 alt="ExpertRohr Logo"
                 className="w-10 h-10 rounded-lg mr-3 object-cover"
               />
