@@ -1832,7 +1832,7 @@ export default function App() {
                 Notdienst jetzt anrufen
               </span>
               <span className="text-sm sm:text-base font-bold leading-tight">
-                030&nbsp;–&nbsp;12345678
+                030&nbsp;–&nbsp 23323873;
               </span>
             </span>
 
