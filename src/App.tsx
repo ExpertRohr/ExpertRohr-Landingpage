@@ -19,6 +19,10 @@ import ref17 from "./assets/ref17.webp";
 import ref8 from "./assets/ref8.webp";
 import ref5 from "./assets/ref5.webp";
 import ref18 from "./assets/ref18.webp";
+import LiveActivityBar from "./LiveActivityBar";
+import handwerkskammerLogo from "./assets/handwerkskammer.webp"; // „Das Handwerk“
+import siegelLogo from "./assets/Siegel.webp";    
+
 
 
 
@@ -140,10 +144,62 @@ function Header() {
   );
 }
 
+function LiveActivityBar() {
+  const messages = [
+    "Heute: Mehrfamilienhaus in Berlin-Charlottenburg von Rohrverstopfung befreit",
+    "Vor 2 Stunden: WC-Verstopfung in Berlin-Spandau erfolgreich gelöst",
+    "Heute früh: Küchenabfluss in Berlin-Reinickendorf gereinigt",
+    "Heute: Grundleitung in Berlin-Prenzlauer Berg mit Spültechnik freigespült",
+    "Heute: Kamerainspektion in Berlin-Mitte zur Schadensanalyse durchgeführt",
+    "Vor 3 Stunden: Rückstau im Keller in Berlin-Friedrichshain behoben",
+    "Heute: Einsatz wegen verstopfter Dusche in Berlin-Neukölln",
+    "Heute: Rohrreinigung für Hausverwaltung in Berlin-Steglitz durchgeführt",
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 7000); // alle 7 Sekunden neue Meldung
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div
+      className="
+        mt-2 inline-flex items-center gap-3
+        rounded-2xl border border-slate-200 bg-white/95
+        px-3 py-2 shadow-md
+      "
+    >
+      {/* Grüner Live-Punkt mit deutlich sichtbarem Puls */}
+      <span className="relative flex h-3 w-3">
+        <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40 animate-ping" />
+        <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 live-dot" />
+      </span>
+
+      <div className="flex flex-col leading-snug">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Live-Aktivität
+        </span>
+
+        <span
+          key={index} // triggert Animation bei jedem Wechsel
+          className="text-[11px] sm:text-xs font-medium text-slate-700 live-message"
+        >
+          {messages[index]}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+
 /* ===========================
    HERO SECTION
 =========================== */
-
 function HeroSection() {
   const [location, setLocation] = useState("Berlin & Brandenburg");
 
@@ -168,195 +224,211 @@ function HeroSection() {
             setLocation("Berlin & Brandenburg");
           }
         },
-        () => {
-          setLocation("Berlin & Brandenburg");
-        }
+        () => setLocation("Berlin & Brandenburg")
       );
     }
   }, []);
 
-return (
-  <section
-    id="hero-section"
-    className="
-      relative
-      py-16 lg:py-20
-      overflow-hidden
-      bg-cover bg-center bg-no-repeat
-      text-white
-    "
-    style={{
-  backgroundImage: `url(${heroBackground})`,
-    }}
-  >
-    {/* dunkles Overlay */}
-    <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px] z-0" />
+  return (
+    <section
+      id="hero-section"
+      className="
+        relative
+        py-16 lg:py-20
+        overflow-hidden
+        bg-cover bg-center bg-no-repeat
+        text-white
+      "
+      style={{ backgroundImage: `url(${heroBackground})` }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px] z-0" />
 
-    {/* Shine-Effekt */}
-    <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
-      <div
-        className="
-          absolute top-0 left-0
-          h-full w-1/2
-          bg-gradient-to-r from-transparent via-white/20 to-transparent
-          mix-blend-screen
-          animate-shine
-        "
-      />
+      {/* Shine Effekt */}
+      <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
+        <div
+          className="
+            absolute top-0 left-0
+            h-full w-1/2
+            bg-gradient-to-r from-transparent via-white/20 to-transparent
+            mix-blend-screen animate-shine
+          "
+        />
+      </div>
+
+      {/* CONTENT WRAPPER */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[2]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          
+          {/* ================================
+              LINKER BEREICH – TEXTBLOCK
+          ================================= */}
+          <div>
+            {/* Badge */}
+            <div className="inline-flex items-center bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-blue-400/30">
+              🚨 24/7 Notdienst · Schnell vor Ort in Berlin &amp; Brandenburg
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+              Rohrreinigung <span className="text-blue-400">vom Fachbetrieb</span>
+              <br />
+              in {location}
+            </h1>
+
+            {/* Beschreibung */}
+            <p className="text-lg sm:text-xl text-gray-300 mb-6 leading-relaxed max-w-xl">
+              Verstopfte Rohre, Überschwemmung oder übler Geruch? Wir kommen
+              schnell, arbeiten sauber und nennen Ihnen den Preis vorab – ohne
+              versteckte Kosten.
+            </p>
+
+            {/* Bullet-Liste */}
+            <ul className="space-y-2 text-gray-300 text-sm sm:text-base mb-6">
+              <li>• Schnelle Anfahrt in Berlin &amp; Brandenburg</li>
+              <li>• Moderne Technik für schonende Rohrreinigung</li>
+              <li>• Privat, Gewerbe &amp; Hausverwaltungen</li>
+              <li>• In 30–60 Min. meist vor Ort*</li>
+            </ul>
+
+            {/* LIVE-AKTIVITÄT */}
+            <div className="mb-6">
+              <LiveActivityBar />
+            </div>
+
+            {/* 👉 CTA-BEREICH */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
+
+              {/* ⭐ PRIMÄRER CALL-CTA */}
+              <a
+                id="hero-call"
+                href="tel:030-23323873"
+                className="
+                  relative block
+                  bg-gradient-to-r from-blue-600 to-blue-500
+                  hover:from-blue-700 hover:to-blue-600
+                  text-white px-10 py-5
+                  rounded-2xl font-bold
+                  transition-all shadow-xl hover:shadow-2xl hover:scale-[1.05]
+                  flex flex-col items-center justify-center
+                  border border-blue-400/40
+                  text-center
+                  animate-cta-glow
+                  sm:min-w-[260px]
+                "
+              >
+                {/* Live Badge */}
+                <span
+                  className="
+                    absolute -top-3 left-4
+                    text-[10px] font-semibold tracking-[0.16em] uppercase
+                    bg-emerald-500 text-white px-2 py-0.5 rounded-full shadow-sm
+                  "
+                >
+                  • Jetzt erreichbar
+                </span>
+
+                <span className="text-sm font-semibold opacity-90 mt-1">
+                  Notdienst anrufen:
+                </span>
+
+                <span className="text-2xl font-extrabold tracking-wide mt-1">
+                  030-23323873
+                </span>
+
+                <span className="text-[11px] opacity-80 mt-1">
+                  kostenlose Beratung · Rückruf in 5&nbsp;Minuten
+                </span>
+              </a>
+
+              {/* ⭐ SEKUNDÄRER CTA */}
+              <a
+                href="#contact"
+                className="
+                  block w-full sm:w-auto
+                  bg-white/10 text-blue-300
+                  border-2 border-blue-400/40
+                  rounded-2xl
+                  px-10 py-5
+                  font-semibold
+                  text-base sm:text-lg
+                  hover:bg-white/20 hover:border-blue-200
+                  transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]
+                  text-center
+                  min-h-[56px]
+                  flex flex-col items-center justify-center
+                "
+              >
+                <span className="leading-tight">Online Termin &amp; Angebot</span>
+                <span className="text-xs opacity-80 mt-1">
+                  Antwort innerhalb von wenigen Minuten
+                </span>
+              </a>
+            </div>
+          </div>
+
+          {/* ================================
+              RECHTER BEREICH – AUTO + BEWERTUNGEN
+          ================================= */}
+          <div className="relative flex flex-col items-end gap-4">
+            
+            {/* Auto */}
+            <div className="relative w-full flex justify-center lg:justify-end">
+              <div className="relative lg:animate-float">
+                <img
+                  src={auto2}
+                  alt="ExpertRohr Einsatzfahrzeug"
+                  className="
+                    w-[420px] sm:w-[340px] md:w-[460px]
+                    lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
+                    max-w-none object-contain
+                    drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
+                    -mt-2
+                    translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
+                  "
+                />
+              </div>
+            </div>
+
+{/* ⭐ SCHMALER BEWERTUNGS-STREIFEN UNTER DEM AUTO */}
+<div className="w-full max-w-[520px] mx-auto lg:mx-0">
+  <div
+    className="
+      bg-black/55 backdrop-blur-xl
+      border border-white/15
+      rounded-xl shadow-xl
+      px-4 py-2
+      flex items-center justify-between
+      gap-4
+      animate-trust-glow
+    "
+  >
+    {/* Linke Seite: Sterne */}
+    <div className="flex items-center gap-2">
+      <span className="text-xl font-bold text-white">4,9</span>
+      <span className="text-yellow-400 text-sm">★★★★★</span>
+      <span className="text-[11px] text-slate-300">
+        (120+ Bewertungen)
+      </span>
     </div>
 
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[2]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-        {/* LINKER BEREICH – TEXT */}
-        <div>
-          <div className="inline-flex items-center bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-blue-400/30">
-            🚨 24/7 Notdienst · Schnell vor Ort in Berlin &amp; Brandenburg
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-            Rohrreinigung{" "}
-            <span className="text-blue-400">vom Fachbetrieb</span>
-            <br />
-            in {location}
-          </h1>
-
-          <p className="text-lg sm:text-xl text-gray-300 mb-6 leading-relaxed max-w-xl">
-            Verstopfte Rohre, Überschwemmung oder übler Geruch? Wir kommen
-            schnell, arbeiten sauber und nennen Ihnen den Preis vorab – ohne
-            versteckte Kosten.
-          </p>
-
-          <ul className="space-y-2 text-gray-300 text-sm sm:text-base mb-8">
-            <li>• Schnelle Anfahrt in Berlin &amp; Brandenburg</li>
-            <li>• Moderne Technik für schonende Rohrreinigung</li>
-            <li>• Privat, Gewerbe &amp; Hausverwaltungen</li>
-            <li>• In 30–60 Min. meist vor Ort*</li>
-          </ul>
-
-{/* CTAs */}
-<div className="flex flex-col sm:flex-row gap-4">
-  {/* PREMIUM CALL CTA — ICON ENTFERNT */}
-  <a
-    id="hero-call"
-    href="tel:030-23323873"
-    className="
-      bg-gradient-to-r from-blue-600 to-blue-500
-      hover:from-blue-700 hover:to-blue-600
-      text-white px-10 py-5
-      rounded-2xl font-bold
-      transition-all shadow-xl hover:shadow-2xl hover:scale-[1.05]
-      flex flex-col items-center justify-center
-      border border-blue-400/30
-      text-center
-    "
-  >
-    <span className="text-sm font-semibold opacity-90">
-      Notdienst anrufen:
-    </span>
-    <span className="text-2xl font-extrabold tracking-wide mt-1">
-      030-23323873
-    </span>
-  </a>
-
-  {/* ONLINE TERMIN CTA */}
-  <a
-    href="#contact"
-    className="
-      bg-white/10 text-blue-300
-      px-10 py-5 rounded-2xl font-bold text-lg
-      border-2 border-blue-400/40
-      hover:bg-white/20 hover:border-blue-300
-      transition-all shadow-lg hover:shadow-xl hover:scale-[1.03]
-      flex items-center justify-center
-      text-center
-    "
-  >
-    Online Termin &amp; Angebot
-  </a>
-          </div>
-        </div>
-
-{/* RECHTER BEREICH – AUTO + BADGES (neu platziert) */}
-<div className="relative flex flex-col items-end gap-4">
-  {/* Auto – responsive Größen & Position + FLOAT */}
-  <div className="relative w-full flex justify-center lg:justify-end">
-    <div className="relative lg:animate-float">
-      <img
-        src={auto2}
-        alt="Expert Rohr Einsatzfahrzeug"
-        className="
-          w-[420px]          /* Mobile */
-          sm:w-[340px]
-          md:w-[460px]
-          lg:w-[760px]       /* Desktop */
-          xl:w-[860px]
-          2xl:w-[920px]
-
-          max-w-none
-          object-contain
-          drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
-          -mt-2
-          translate-x-0
-          lg:translate-x-[80px]
-          xl:translate-x-[200px]
-        "
-      />
+    {/* Rechte Seite: Kurz-Trust */}
+    <div className="text-[11px] text-slate-300 text-right leading-tight">
+      Verifiziert auf Google<br />
+      Kunden aus Berlin & Brandenburg
     </div>
   </div>
+</div>
 
-          {/* kompakte Badge-Leiste direkt unter dem Auto */}
-          <div
-            className="
-              flex items-center justify-center lg:justify-end
-              gap-6
-              px-5 sm:px-6 lg:px-8
-              py-3
-              bg-black/60 backdrop-blur-xl
-              rounded-2xl border border-white/10 shadow-xl
 
-              w-full
-              max-w-[380px] sm:max-w-[420px] md:max-w-[500px]
-              lg:max-w-[600px] xl:max-w-[680px]
-
-              mx-auto lg:mx-0
-              -mt-1 lg:-mt-4
-
-              lg:translate-x-[40px]
-              xl:translate-x-[80px]
-            "
-          >
-            <div className="flex items-center gap-2 text-gray-200 text-xs sm:text-sm">
-              <span className="text-yellow-400 text-base">⭐</span>
-              <span className="pl-1 sm:pl-1.5 lg:pl-2">4,9 / 5 Kunden</span>
-            </div>
-
-            <div className="hidden sm:block w-px h-4 bg-white/20" />
-
-            <div className="flex items-center gap-2 text-gray-200 text-xs sm:text-sm">
-              <span className="text-blue-300 text-base">🛡️</span>
-              <span className="pl-1 sm:pl-1.5 lg:pl-2">Schadenfrei</span>
-            </div>
-
-            <div className="hidden md:block w-px h-4 bg-white/20" />
-
-            <div className="flex items-center gap-2 text-gray-200 text-xs sm:text-sm">
-              <span className="text-green-300 text-base">💰</span>
-              <span className="pl-1 sm:pl-1.5 lg:pl-2">Festpreis</span>
-            </div>
-
-            <div className="hidden lg:block w-px h-4 bg-white/20" />
-
-            <div className="flex items-center gap-2 text-gray-200 text-xs sm:text-sm">
-              <span className="text-red-300 text-base">📞</span>
-              <span className="pl-1 sm:pl-1.5 lg:pl-2">24/7 Notdienst</span>
-            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }
+
+
 
 /* ===========================
    2) LEISTUNGEN
@@ -1617,6 +1689,78 @@ function Footer({
     <footer className="bg-gray-900 text-white py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
+        {/* CTA-BAND VOR DEM EIGENTLICHEN FOOTER */}
+        <div
+          className="
+            mb-12
+            rounded-2xl
+            bg-slate-800/80
+            border border-slate-700
+            px-4 sm:px-6 lg:px-8
+            py-6 sm:py-7
+            flex flex-col md:flex-row
+            items-center justify-between
+            gap-4 sm:gap-6
+            shadow-lg
+          "
+        >
+          {/* Textblock */}
+          <div className="text-center md:text-left">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-emerald-400 font-semibold mb-1">
+              JETZT HILFE ANFORDERN
+            </p>
+            <h2 className="text-lg sm:text-xl font-bold text-white mb-1">
+              Verstopfung oder Notfall? Wir kümmern uns darum.
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-md">
+              Schildern Sie kurz Ihr Problem – ein Techniker meldet sich
+              in der Regel innerhalb von wenigen Minuten telefonisch zurück.
+            </p>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+            {/* Call-Button */}
+            <a
+              href="tel:030-23323873"
+              className="
+                inline-flex items-center justify-center
+                px-5 sm:px-6 py-2.5
+                rounded-xl
+                bg-gradient-to-r from-blue-600 to-blue-500
+                text-white text-sm font-semibold
+                shadow-lg hover:shadow-xl
+                hover:from-blue-700 hover:to-blue-600
+                transition-all
+                w-full sm:w-auto
+              "
+            >
+              <span className="mr-2 text-base">📞</span>
+              <span>Jetzt Notdienst anrufen</span>
+            </a>
+
+            {/* Formular-Button */}
+            <a
+              href="#contact"
+              className="
+                inline-flex items-center justify-center
+                px-5 sm:px-6 py-2.5
+                rounded-xl
+                border border-slate-500
+                bg-slate-900/80
+                text-slate-100 text-sm font-semibold
+                shadow-md hover:shadow-lg
+                hover:bg-slate-800 hover:border-slate-300
+                transition-all
+                w-full sm:w-auto
+              "
+            >
+              <span className="mr-2 text-base">📝</span>
+              <span>Online Termin &amp; Angebot</span>
+            </a>
+          </div>
+        </div>
+
         {/* ÖFFNUNGSZEITEN */}
         <div className="text-center mb-10">
           <h4 className="text-lg font-semibold mb-2">Öffnungszeiten</h4>
@@ -1629,14 +1773,12 @@ function Footer({
           {/* SPALTE 1 – Branding */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-4">
-
-              {/* Logo Image statt BackgroundImage */}
+              {/* Logo Image */}
               <img
                 src={expertRohrLogo}
                 alt="ExpertRohr Logo"
                 className="w-10 h-10 rounded-lg mr-3 object-cover"
               />
-
               <h3 className="text-xl font-bold">ExpertRohr</h3>
             </div>
 
@@ -1690,7 +1832,12 @@ function Footer({
               <div className="mt-4 flex justify-center md:justify-start">
                 <a
                   href="tel:030-23323873"
-                  className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all inline-block"
+                  className="
+                    bg-gradient-to-r from-orange-500 to-red-600
+                    text-white px-4 py-2 rounded-lg font-semibold
+                    hover:from-orange-600 hover:to-red-700
+                    transition-all inline-block
+                  "
                 >
                   Jetzt anrufen
                 </a>
@@ -1735,6 +1882,7 @@ function Footer({
     </footer>
   );
 }
+
 
 /* ===========================
    APP KOMPONENTE
@@ -2204,7 +2352,7 @@ export default function App() {
   overflow: visible;
 }
 
-/* Optional: Image-Carousel-Klassen (falls du sie später nutzen willst) */
+/* Optional: Image-Carousel-Klassen */
 .carousel-container {
   overflow: hidden;
 }
@@ -2237,7 +2385,7 @@ export default function App() {
   }
 }
 
-/* ExpertRohr Logo + Google Button (Reserve-Klassen) */
+/* ExpertRohr Logo + Google Button */
 .expert-google-container {
   text-align: center;
   margin-top: 40px;
@@ -2275,6 +2423,162 @@ export default function App() {
   font-size: 16px;
   color: #333;
 }
+
+/* ============================= */
+/* CTA GLOW EFFECT (NEU) */
+/* ============================= */
+
+@keyframes ctaGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 123, 255, 0.0);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 18px rgba(0, 140, 255, 0.45);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 123, 255, 0.0);
+  }
+}
+
+.animate-cta-glow {
+  animation: ctaGlow 2.2s ease-in-out infinite;
+}
+
+ @keyframes liveFade {
+  0% { opacity: 0.85; }
+  50% { opacity: 1; }
+  100% { opacity: 0.85; }
+}
+
+.animate-liveFade {
+  animation: liveFade 3s ease-in-out infinite;
+}
+
+@keyframes liveTextFade {
+  0% { opacity: 0; transform: translateY(3px); }
+  20% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; }
+}
+
+.animate-liveText {
+  animation: liveTextFade 0.6s ease-out;
+}
+
+          @keyframes liveDotPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.live-dot {
+  animation: liveDotPulse 1.6s ease-out infinite;
+}
+
+@keyframes liveMessageIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.live-message {
+  animation: liveMessageIn 0.35s ease-out;
+}
+
+                    {/* ================================
+              RECHTER BEREICH – AUTO + BADGES
+          ================================= */}
+          <div className="relative flex flex-col items-end gap-4">
+
+            {/* Auto */}
+            <div className="relative w-full flex justify-center lg:justify-end">
+              <div className="relative lg:animate-float">
+                <img
+                  src={auto2}
+                  alt="Expert Rohr Einsatzfahrzeug"
+                  className="
+                    w-[420px] sm:w-[340px] md:w-[460px]
+                    lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
+                    max-w-none object-contain
+                    drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
+                    -mt-2
+                    translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
+                  "
+                />
+              </div>
+            </div>
+
+            {/* Badges */}
+            <div
+              className="
+                flex items-center justify-center lg:justify-end
+                gap-4 sm:gap-6
+                px-4 sm:px-6 lg:px-8
+                py-2 sm:py-3
+                bg-black/40 backdrop-blur-xl
+                rounded-xl border border-white/10 shadow-lg
+
+                w-full
+                max-w-[340px] sm:max-w-[420px] md:max-w-[500px]
+                lg:max-w-[600px] xl:max-w-[680px]
+
+                mx-auto lg:mx-0
+                -mt-1 lg:-mt-4
+                lg:translate-x-[40px] xl:translate-x-[80px]
+              "
+            >
+              {/* ⭐ Bewertung */}
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
+                <span className="text-yellow-400 text-sm sm:text-base">⭐</span>
+                <span>4,9 / 5 Kunden</span>
+              </div>
+
+              <div className="hidden sm:block w-px h-4 bg-white/20" />
+
+              {/* 🛡 Schadenfrei */}
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
+                <span className="text-blue-300 text-sm sm:text-base">🛡️</span>
+                <span>Schadenfrei</span>
+              </div>
+
+              <div className="hidden md:block w-px h-4 bg-white/20" />
+
+              {/* 💰 Festpreis */}
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
+                <span className="text-green-300 text-sm sm:text-base">💰</span>
+                <span>Festpreis</span>
+              </div>
+
+              <div className="hidden lg:block w-px h-4 bg-white/20" />
+
+              {/* 📞 24/7 */}
+              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
+                <span className="text-red-300 text-sm sm:text-base">📞</span>
+                <span>24/7 Notdienst</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+        
         `}
       </style>
     </div>
