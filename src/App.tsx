@@ -20,8 +20,8 @@ import ref8 from "./assets/ref8.webp";
 import ref5 from "./assets/ref5.webp";
 import ref18 from "./assets/ref18.webp";
 import LiveActivityBar from "./LiveActivityBar";
-import handwerkskammerLogo from "./assets/handwerkskammer.webp"; // „Das Handwerk“
-import siegelLogo from "./assets/Siegel.webp";    
+import googleLogo from "./assets/google-logo.webp";
+   
 
 
 
@@ -68,7 +68,13 @@ function TopNoticeBar() {
 =========================== */
 function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <header
+      className="
+        sticky top-0 z-50
+        bg-white/95 backdrop-blur-sm
+        shadow-sm
+      "
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo + Name */}
@@ -82,31 +88,24 @@ function Header() {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-            {/* Warum wir → Warum ExpertRohrreinigung */}
             <a
               href="#about"
               className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
             >
               Warum wir
             </a>
-
-            {/* Leistungen → ServicesSection */}
             <a
               href="#services"
               className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
             >
               Leistungen
             </a>
-
-            {/* Fragen? → FAQ-Section */}
             <a
               href="#faq"
               className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
             >
               Fragen?
             </a>
-
-            {/* Kontakt → ContactSection */}
             <a
               href="#contact"
               className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
@@ -143,6 +142,7 @@ function Header() {
     </header>
   );
 }
+
 
 function LiveActivityBar() {
   const messages = [
@@ -367,60 +367,63 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* ================================
-              RECHTER BEREICH – AUTO + BEWERTUNGEN
-          ================================= */}
-          <div className="relative flex flex-col items-end gap-4">
-            
-            {/* Auto */}
-            <div className="relative w-full flex justify-center lg:justify-end">
-              <div className="relative lg:animate-float">
-                <img
-                  src={auto2}
-                  alt="ExpertRohr Einsatzfahrzeug"
-                  className="
-                    w-[420px] sm:w-[340px] md:w-[460px]
-                    lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
-                    max-w-none object-contain
-                    drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
-                    -mt-2
-                    translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
-                  "
-                />
-              </div>
-            </div>
+{/* ================================
+    RECHTER BEREICH – AUTO + BEWERTUNG
+================================= */}
+<div className="relative flex flex-col items-end gap-4">
+  {/* Auto + angedocktes Badge */}
+  <div className="relative w-full flex justify-center lg:justify-end">
+    <div className="relative inline-block lg:animate-float">
+      {/* 🚐 AUTO */}
+      <img
+        src={auto2}
+        alt="ExpertRohr Einsatzfahrzeug"
+        className="
+          w-[420px] sm:w-[340px] md:w-[460px]
+          lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
+          max-w-none object-contain
+          drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
+          -mt-2
+          translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
+        "
+      />
 
-{/* ⭐ SCHMALER BEWERTUNGS-STREIFEN UNTER DEM AUTO */}
-<div className="w-full max-w-[520px] mx-auto lg:mx-0">
-  <div
-    className="
-      bg-black/55 backdrop-blur-xl
-      border border-white/15
-      rounded-xl shadow-xl
-      px-4 py-2
-      flex items-center justify-between
-      gap-4
-      animate-trust-glow
-    "
-  >
-    {/* Linke Seite: Sterne */}
-    <div className="flex items-center gap-2">
-      <span className="text-xl font-bold text-white">4,9</span>
-      <span className="text-yellow-400 text-sm">★★★★★</span>
-      <span className="text-[11px] text-slate-300">
-        (120+ Bewertungen)
-      </span>
-    </div>
+{/* ⭐ GOOGLE-BADGE – GROß, AM AUTO ANGEDOCKT */}
+<div
+  className="
+    absolute
+    bottom-[-18px] right-[14%]
+    sm:bottom-[-24px] sm:right-[22%]
+    lg:bottom-[-26px] lg:right-[26%]
+    flex items-center gap-4
+    bg-slate-900/95 backdrop-blur-xl
+    border border-yellow-400/60
+    rounded-3xl
+    px-6 py-4
+    shadow-[0_0_35px_rgba(234,179,8,0.35)]
+    text-slate-100
+    z-20
+  "
+>
+  {/* ✅ ECHTES GOOGLE LOGO */}
+  <img
+    src={googleLogo}
+    alt="Google Bewertungen"
+    className="w-10 h-10 sm:w-11 sm:h-11 object-contain"
+  />
 
-    {/* Rechte Seite: Kurz-Trust */}
-    <div className="text-[11px] text-slate-300 text-right leading-tight">
-      Verifiziert auf Google<br />
-      Kunden aus Berlin & Brandenburg
+  {/* ✅ Bewertungs-Text */}
+  <div className="flex flex-col leading-tight">
+    <span className="font-bold text-lg sm:text-xl flex items-center gap-2">
+      4,9 / 5,0
+      <span className="text-yellow-400 text-sm sm:text-base">★★★★★</span>
+    </span>
+    <span className="text-xs sm:text-sm text-slate-300">
+      120+ echte Google-Bewertungen
+          </span>        </div>
+      </div>
     </div>
   </div>
-</div>
-
-
           </div>
         </div>
       </div>
@@ -492,24 +495,24 @@ function ServicesSection() {
             <div
               key={service.title}
               className={`
-   group relative flex flex-col
-    bg-white
-    rounded-2xl border border-gray-200/80
-    shadow-sm
-    transition-all duration-300
-    overflow-hidden
-    transform-gpu
-    animate-fade-up
+                group relative flex flex-col
+                bg-white
+                rounded-2xl border border-gray-200/80
+                shadow-sm
+                transition-all duration-300
+                overflow-hidden
+                transform-gpu
+                animate-fade-up
 
-    hover:shadow-2xl
-    hover:border-blue-500/60
-    hover:-translate-y-2
-    hover:scale-[1.03]
-    group-hover:animate-push-forward
-  `}
-  style={{
-    animationDelay: `${index * 90}ms`,
-  }}
+                hover:shadow-2xl
+                hover:border-blue-500/60
+                hover:-translate-y-2
+                hover:scale-[1.03]
+                group-hover:animate-push-forward
+              `}
+              style={{
+                animationDelay: `${index * 90}ms`,
+              }}
             >
               <div className="p-6 lg:p-7 flex-1 flex flex-col">
                 {/* Icon + Titel */}
@@ -541,9 +544,9 @@ function ServicesSection() {
                   ))}
                 </ul>
 
-                {/* Button */}
-                <button
-                  type="button"
+                {/* Button -> Link zum Kontaktformular */}
+                <a
+                  href="#contact"
                   className="
                     mt-auto
                     w-full
@@ -559,7 +562,7 @@ function ServicesSection() {
                   "
                 >
                   Soforthilfe anfordern
-                </button>
+                </a>
               </div>
 
               {/* dezenter Glanz oben */}
@@ -2325,6 +2328,15 @@ export default function App() {
       <style>
         {`
 /* ============================= */
+/* GLOBAL RESET – WICHTIG GEGEN WEISSEN RAND */
+/* ============================= */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================= */
 /* GLOBAL ANIMATIONS */
 /* ============================= */
 
@@ -2425,7 +2437,7 @@ export default function App() {
 }
 
 /* ============================= */
-/* CTA GLOW EFFECT (NEU) */
+/* CTA GLOW EFFECT */
 /* ============================= */
 
 @keyframes ctaGlow {
@@ -2447,9 +2459,9 @@ export default function App() {
   animation: ctaGlow 2.2s ease-in-out infinite;
 }
 
- @keyframes liveFade {
-  0% { opacity: 0.85; }
-  50% { opacity: 1; }
+@keyframes liveFade {
+  0%   { opacity: 0.85; }
+  50%  { opacity: 1; }
   100% { opacity: 0.85; }
 }
 
@@ -2458,8 +2470,8 @@ export default function App() {
 }
 
 @keyframes liveTextFade {
-  0% { opacity: 0; transform: translateY(3px); }
-  20% { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(3px); }
+  20%  { opacity: 1; transform: translateY(0); }
   100% { opacity: 1; }
 }
 
@@ -2467,7 +2479,7 @@ export default function App() {
   animation: liveTextFade 0.6s ease-out;
 }
 
-          @keyframes liveDotPulse {
+@keyframes liveDotPulse {
   0% {
     transform: scale(1);
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
@@ -2501,83 +2513,7 @@ export default function App() {
   animation: liveMessageIn 0.35s ease-out;
 }
 
-                    {/* ================================
-              RECHTER BEREICH – AUTO + BADGES
-          ================================= */}
-          <div className="relative flex flex-col items-end gap-4">
 
-            {/* Auto */}
-            <div className="relative w-full flex justify-center lg:justify-end">
-              <div className="relative lg:animate-float">
-                <img
-                  src={auto2}
-                  alt="Expert Rohr Einsatzfahrzeug"
-                  className="
-                    w-[420px] sm:w-[340px] md:w-[460px]
-                    lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
-                    max-w-none object-contain
-                    drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
-                    -mt-2
-                    translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
-                  "
-                />
-              </div>
-            </div>
-
-            {/* Badges */}
-            <div
-              className="
-                flex items-center justify-center lg:justify-end
-                gap-4 sm:gap-6
-                px-4 sm:px-6 lg:px-8
-                py-2 sm:py-3
-                bg-black/40 backdrop-blur-xl
-                rounded-xl border border-white/10 shadow-lg
-
-                w-full
-                max-w-[340px] sm:max-w-[420px] md:max-w-[500px]
-                lg:max-w-[600px] xl:max-w-[680px]
-
-                mx-auto lg:mx-0
-                -mt-1 lg:-mt-4
-                lg:translate-x-[40px] xl:translate-x-[80px]
-              "
-            >
-              {/* ⭐ Bewertung */}
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
-                <span className="text-yellow-400 text-sm sm:text-base">⭐</span>
-                <span>4,9 / 5 Kunden</span>
-              </div>
-
-              <div className="hidden sm:block w-px h-4 bg-white/20" />
-
-              {/* 🛡 Schadenfrei */}
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
-                <span className="text-blue-300 text-sm sm:text-base">🛡️</span>
-                <span>Schadenfrei</span>
-              </div>
-
-              <div className="hidden md:block w-px h-4 bg-white/20" />
-
-              {/* 💰 Festpreis */}
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
-                <span className="text-green-300 text-sm sm:text-base">💰</span>
-                <span>Festpreis</span>
-              </div>
-
-              <div className="hidden lg:block w-px h-4 bg-white/20" />
-
-              {/* 📞 24/7 */}
-              <div className="flex items-center gap-1 sm:gap-2 text-gray-200 text-[10px] sm:text-xs md:text-sm">
-                <span className="text-red-300 text-sm sm:text-base">📞</span>
-                <span>24/7 Notdienst</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
         
         `}
       </style>
