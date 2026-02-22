@@ -8,28 +8,54 @@
          GOOGLE TAG MANAGER (HEAD)
     ============================ -->
     <script>
-      (function(w,d,s,l,i){
-        w[l]=w[l]||[];
-        w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
-        var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),
-            dl=l!='dataLayer'?'&l='+l:'';
-        j.async=true;
-        j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-        f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-N4WV7NC4');
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-N4WV7NC4");
     </script>
     <!-- End Google Tag Manager -->
 
     <!-- ============================
-         GOOGLE ANALYTICS (GA4)
+         GOOGLE ANALYTICS (GA4) + GOOGLE ADS (GLOBAL TAG)
+         (einmal gtag.js laden, dann beide configs setzen)
     ============================ -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-TH706HFHW');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      // GA4
+      gtag("config", "G-TH706HFHW");
+
+      // Google Ads
+      gtag("config", "AW-17931609279");
+    </script>
+
+    <!-- ============================
+         GOOGLE ADS CONVERSION (TEL-KLICK)
+         Triggert "Kontakt"-Conversion sobald auf tel: geklickt wird
+    ============================ -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const telLinks = document.querySelectorAll('a[href^="tel:"]');
+
+        telLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            gtag("event", "conversion", {
+              send_to: "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC",
+            });
+          });
+        });
+      });
     </script>
 
     <!-- STYLES -->
@@ -89,7 +115,7 @@
         src="https://www.googletagmanager.com/ns.html?id=GTM-N4WV7NC4"
         height="0"
         width="0"
-        style="display:none;visibility:hidden"
+        style="display: none; visibility: hidden"
       ></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
