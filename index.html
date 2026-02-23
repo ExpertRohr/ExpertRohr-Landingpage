@@ -1,72 +1,66 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Tag (GA4 + Google Ads) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
+  <!-- Google Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
 
-      // GA4
-      gtag("config", "G-TH706HFHW");
+    gtag("config", "G-TH706HFHW");      // GA4
+    gtag("config", "AW-17931609279");   // Google Ads
+  </script>
 
-      // Google Ads
-      gtag("config", "AW-17931609279");
-    </script>
+  <!-- Google Ads Call Conversion (React-sicher) -->
+  <script>
+    const SEND_TO = "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC";
 
-    <!-- Google Ads Call Conversion -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const SEND_TO = "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC";
+    function attachCallTracking() {
+      document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+        if (link.dataset.tracked) return;
+        link.dataset.tracked = "true";
 
-        document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
-          link.addEventListener("click", function (e) {
+        link.addEventListener("click", function (e) {
+          if (typeof window.gtag !== "function") return;
 
-            if (typeof window.gtag !== "function") return;
+          const href = link.getAttribute("href");
+          if (!href) return;
 
-            const href = link.getAttribute("href");
-            if (!href) return;
+          e.preventDefault();
 
-            e.preventDefault();
+          let done = false;
+          const proceed = () => {
+            if (done) return;
+            done = true;
+            window.location.href = href;
+          };
 
-            let done = false;
-            const proceed = () => {
-              if (done) return;
-              done = true;
-              window.location.href = href;
-            };
-
-            gtag("event", "conversion", {
-              send_to: SEND_TO,
-              event_callback: proceed,
-              event_timeout: 400,
-            });
-
-            setTimeout(proceed, 450);
+          gtag("event", "conversion", {
+            send_to: SEND_TO,
+            event_callback: proceed,
+            event_timeout: 400,
           });
+
+          setTimeout(proceed, 450);
         });
       });
-    </script>
+    }
 
-    <link rel="stylesheet" href="/src/index.css" />
+    // wegen React: regelmäßig prüfen
+    setInterval(attachCallTracking, 1000);
+  </script>
 
-    <link rel="icon" type="image/webp" href="/LogoQuadrat.webp" />
-    <link rel="apple-touch-icon" href="/LogoQuadrat.webp" />
+  <link rel="stylesheet" href="/src/index.css" />
+  <link rel="icon" type="image/webp" href="/LogoQuadrat.webp" />
+  <title>ExpertRohr – Rohrreinigung Berlin & Brandenburg</title>
+</head>
 
-    <title>ExpertRohr – Rohrreinigung Berlin & Brandenburg</title>
-
-    <meta
-      name="description"
-      content="ExpertRohr – Professionelle Rohrreinigung, Abflussreinigung & 24/7 Notdienst in Berlin & Brandenburg."
-    />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
