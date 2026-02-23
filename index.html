@@ -4,33 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ============================
-         GOOGLE TAG MANAGER (HEAD)
-    ============================ -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-N4WV7NC4");
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <!-- ============================
-         GOOGLE ANALYTICS (GA4) + GOOGLE ADS (GLOBAL TAG)
-         (einmal gtag.js laden, dann beide configs setzen)
-    ============================ -->
+    <!-- Google Tag (GA4 + Google Ads) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
+      function gtag(){dataLayer.push(arguments);}
       gtag("js", new Date());
 
       // GA4
@@ -40,86 +18,54 @@
       gtag("config", "AW-17931609279");
     </script>
 
-    <!-- ============================
-         GOOGLE ADS CONVERSION (TEL-KLICK)
-         Triggert "Kontakt"-Conversion sobald auf tel: geklickt wird
-    ============================ -->
+    <!-- Google Ads Call Conversion -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const telLinks = document.querySelectorAll('a[href^="tel:"]');
+        const SEND_TO = "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC";
 
-        telLinks.forEach((link) => {
-          link.addEventListener("click", function () {
+        document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
+          link.addEventListener("click", function (e) {
+
+            if (typeof window.gtag !== "function") return;
+
+            const href = link.getAttribute("href");
+            if (!href) return;
+
+            e.preventDefault();
+
+            let done = false;
+            const proceed = () => {
+              if (done) return;
+              done = true;
+              window.location.href = href;
+            };
+
             gtag("event", "conversion", {
-              send_to: "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC",
+              send_to: SEND_TO,
+              event_callback: proceed,
+              event_timeout: 400,
             });
+
+            setTimeout(proceed, 450);
           });
         });
       });
     </script>
 
-    <!-- STYLES -->
     <link rel="stylesheet" href="/src/index.css" />
 
-    <!-- ============================
-         FAVICON / BRANDING
-    ============================ -->
     <link rel="icon" type="image/webp" href="/LogoQuadrat.webp" />
     <link rel="apple-touch-icon" href="/LogoQuadrat.webp" />
 
-    <!-- ============================
-         SEO
-    ============================ -->
     <title>ExpertRohr – Rohrreinigung Berlin & Brandenburg</title>
 
     <meta
       name="description"
-      content="ExpertRohr – Professionelle Rohrreinigung, Abflussreinigung & 24/7 Notdienst in Berlin & Brandenburg. Schnelle Hilfe, faire Festpreise, moderne Kameratechnik."
+      content="ExpertRohr – Professionelle Rohrreinigung, Abflussreinigung & 24/7 Notdienst in Berlin & Brandenburg."
     />
-
-    <meta
-      name="keywords"
-      content="Rohrreinigung Berlin, Abflussreinigung Berlin, Rohr Notdienst Berlin, 24h Notdienst, Kamerainspektion, Rohrverstopfung"
-    />
-
-    <!-- ============================
-         OPEN GRAPH (Social Media Vorschau)
-    ============================ -->
-    <meta property="og:title" content="ExpertRohr – 24/7 Rohrreinigung Berlin & Brandenburg" />
-    <meta
-      property="og:description"
-      content="Schneller 24/7 Notdienst, professionelle Rohrreinigung & Kamerainspektion. Faire Festpreise – jetzt anrufen!"
-    />
-    <meta property="og:image" content="/og-image.png" />
-    <meta property="og:url" content="https://expertrohr.de" />
-    <meta property="og:type" content="website" />
-
-    <!-- ============================
-         TWITTER CARD (X)
-    ============================ -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ExpertRohr – 24/7 Rohrreinigung Berlin & Brandenburg" />
-    <meta
-      name="twitter:description"
-      content="Rohrverstopfung? Unser Notdienst ist sofort für Sie da!"
-    />
-    <meta name="twitter:image" content="/og-image.png" />
   </head>
 
   <body>
-    <!-- ============================
-         GOOGLE TAG MANAGER (BODY)
-    ============================ -->
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-N4WV7NC4"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
