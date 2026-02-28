@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import CookieBanner from "./CookieBanner";
 
@@ -7,6 +7,7 @@ import expertRohrLogo from "./assets/ExpertRohr-min.webp";
 import heroBackground from "./assets/HeroHintergrund.webp";
 import auto2 from "./assets/auto2.webp";
 import cameraImage from "./assets/Kamera.webp";
+import googleLogo from "./assets/google-logo.webp";
 
 /* Referenzen */
 import ref14 from "./assets/ref14.webp";
@@ -19,12 +20,8 @@ import ref17 from "./assets/ref17.webp";
 import ref8 from "./assets/ref8.webp";
 import ref5 from "./assets/ref5.webp";
 import ref18 from "./assets/ref18.webp";
+
 import LiveActivityBar from "./LiveActivityBar";
-import googleLogo from "./assets/google-logo.webp";
-   
-
-
-
 
 /* ===========================
    FAQ ITEM KOMPONENTE
@@ -52,9 +49,16 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 /* ===========================
    TOP NOTICE BAR
 =========================== */
-function TopNoticeBar() {
+export function TopNoticeBar() {
   return (
-    <div className="sticky top-0 z-[100] w-full bg-gradient-to-r from-blue-700 to-blue-500 text-white text-center py-2 px-4 font-semibold shadow-lg">
+    <div
+      className="
+        w-full
+        bg-gradient-to-r from-blue-700 to-blue-500
+        text-white text-center py-2 px-4 font-semibold shadow-lg
+        md:sticky md:top-0 md:z-[100]
+      "
+    >
       <span role="img" aria-label="clock">
         🕖
       </span>{" "}
@@ -66,85 +70,69 @@ function TopNoticeBar() {
 /* ===========================
    HEADER / NAVIGATION
 =========================== */
-function Header() {
+export function Header() {
   return (
-    <header
-      className="
-        sticky top-0 z-50
-        bg-white/95 backdrop-blur-sm
-        shadow-sm
-      "
-    >
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo + Name */}
           <div className="flex items-center">
-            <div
-              className="w-10 h-10 bg-cover bg-center rounded-lg flex items-center justify-center mr-3"
-              style={{ backgroundImage: `url(${expertRohrLogo})` }}
+            <img
+              src={expertRohrLogo}
+              alt="ExpertRohr Logo"
+              className="w-10 h-10 object-contain mr-3"
+              loading="eager"
+              decoding="async"
+              onError={(e) => {
+                // zeigt dir sofort im Browser, dass der Pfad nicht stimmt
+                console.log("LOGO FEHLT:", expertRohrLogo);
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
             />
             <h1 className="text-xl font-bold text-gray-900">ExpertRohr</h1>
           </div>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
-            <a
-              href="#about"
-              className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
-            >
+            <a href="#about" className="text-gray-700 hover:text-blue-600 transition-colors nav-link">
               Warum wir
             </a>
-            <a
-              href="#services"
-              className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
-            >
+            <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors nav-link">
               Leistungen
             </a>
-            <a
-              href="#faq"
-              className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
-            >
+            <a href="#faq" className="text-gray-700 hover:text-blue-600 transition-colors nav-link">
               Fragen?
             </a>
-            <a
-              href="#contact"
-              className="text-gray-700 hover:text-blue-600 transition-colors nav-link"
-            >
+            <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors nav-link">
               Kontakt
             </a>
           </nav>
 
-          {/* Notdienst-Button rechts */}
-          <div className="flex items-center">
-            <a
-              href="tel:030-23323873"
-              className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-orange-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl"
-            >
-              📞 Notdienst
-            </a>
-          </div>
+          {/* Notdienst-Button */}
+          <a
+            href="tel:030-23323873"
+            className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-xl font-extrabold shadow-lg hover:from-orange-600 hover:to-red-700 transition-all text-sm sm:text-base"
+          >
+            📞 Notdienst
+          </a>
         </div>
       </div>
 
-      {/* Kleine Hover-Optimierung */}
       <style>
         {`
-          .nav-link {
-            font-weight: 500;
-            color: #374151;
-            transition: color .2s;
-          }
-          .nav-link:hover {
-            color: #2563eb;
-          }
+          .nav-link { font-weight: 500; color: #374151; transition: color .2s; }
+          .nav-link:hover { color: #2563eb; }
         `}
       </style>
     </header>
   );
 }
 
-
-function LiveActivityBar() {
+/* ===========================
+   LIVE ACTIVITY BAR
+   (WICHTIG: kein Import aus ./LiveActivityBar mehr!)
+=========================== */
+export function LiveActivityBar() {
   const messages = [
     "Heute: Mehrfamilienhaus in Berlin-Charlottenburg von Rohrverstopfung befreit",
     "Vor 2 Stunden: WC-Verstopfung in Berlin-Spandau erfolgreich gelöst",
@@ -161,23 +149,15 @@ function LiveActivityBar() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
-    }, 7000); // alle 7 Sekunden neue Meldung
-
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div
-      className="
-        mt-2 inline-flex items-center gap-3
-        rounded-2xl border border-slate-200 bg-white/95
-        px-3 py-2 shadow-md
-      "
-    >
-      {/* Grüner Live-Punkt mit deutlich sichtbarem Puls */}
+    <div className="mt-2 inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 px-3 py-2 shadow-md">
       <span className="relative flex h-3 w-3">
         <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-40 animate-ping" />
-        <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500 live-dot" />
+        <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
       </span>
 
       <div className="flex flex-col leading-snug">
@@ -185,10 +165,7 @@ function LiveActivityBar() {
           Live-Aktivität
         </span>
 
-        <span
-          key={index} // triggert Animation bei jedem Wechsel
-          className="text-[11px] sm:text-xs font-medium text-slate-700 live-message"
-        >
+        <span key={index} className="text-[11px] sm:text-xs font-medium text-slate-700">
           {messages[index]}
         </span>
       </div>
@@ -196,51 +173,50 @@ function LiveActivityBar() {
   );
 }
 
+/* ===========================
+   STICKY CALL (MOBILE)
+=========================== */
+export function StickyCallMobile() {
+  return (
+    <a
+      href="tel:030-23323873"
+      className="
+        md:hidden
+        fixed left-3 right-3 bottom-3
+        z-[99999]
+        bg-gradient-to-r from-orange-500 to-red-600
+        text-white font-extrabold
+        py-4 rounded-2xl
+        text-center shadow-2xl
+        active:scale-[0.99]
+      "
+    >
+      📞 Notdienst: 030-23323873
+    </a>
+  );
+}
 
 /* ===========================
    HERO SECTION
 =========================== */
-function HeroSection() {
-  const [location, setLocation] = useState("Berlin & Brandenburg");
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const res = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
-            );
-            const data = await res.json();
-            const city =
-              data.address.city ||
-              data.address.town ||
-              data.address.village ||
-              data.address.county;
-
-            setLocation(city || "Berlin & Brandenburg");
-          } catch {
-            setLocation("Berlin & Brandenburg");
-          }
-        },
-        () => setLocation("Berlin & Brandenburg")
-      );
-    }
-  }, []);
-
+export function HeroSection() {
   return (
     <section
       id="hero-section"
       className="
         relative
-        py-16 lg:py-20
+        py-10 sm:py-14 lg:py-20
         overflow-hidden
-        bg-cover bg-center bg-no-repeat
         text-white
       "
-      style={{ backgroundImage: `url(${heroBackground})` }}
     >
+      {/* ✅ Background als IMG (sichtbar + stabil) */}
+      <img
+        src={heroBackground}
+        alt="Hero Hintergrund"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px] z-0" />
 
@@ -256,31 +232,93 @@ function HeroSection() {
         />
       </div>
 
-      {/* CONTENT WRAPPER */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-[2]">
+      {/* CONTENT */}
+      <div className="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          
-          {/* ================================
-              LINKER BEREICH – TEXTBLOCK
-          ================================= */}
+          {/* LEFT */}
           <div>
             {/* Badge */}
-            <div className="inline-flex items-center bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-blue-400/30">
+            <div className="inline-flex items-center bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-3 border border-blue-400/30">
               🚨 24/7 Notdienst · Schnell vor Ort in Berlin &amp; Brandenburg
             </div>
 
+            {/* ✅ Mini-Trust oben (5000+ / Kein Callcenter) */}
+            <div className="text-[12px] sm:text-sm text-white/85 mb-5 flex flex-wrap gap-x-4 gap-y-2">
+              <span className="inline-flex items-center gap-2">
+                ⭐ <b className="text-white">5000+</b> Einsätze
+              </span>
+              <span className="inline-flex items-center gap-2">☎️ Kein Callcenter</span>
+            </div>
+
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
-              Rohrreinigung <span className="text-blue-400">vom Fachbetrieb</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
+              Rohr verstopft? <span className="text-blue-400">24/7 Notdienst</span>
               <br />
-              in {location}
+              in Berlin &amp; Brandenburg
             </h1>
 
+            {/* ✅ Mobile CTA ABOVE THE FOLD */}
+            <div className="md:hidden mt-4">
+              <a
+                href="tel:030-23323873"
+                className="
+                  block w-full
+                  bg-gradient-to-r from-orange-500 to-red-600
+                  text-white
+                  px-6 py-4
+                  rounded-2xl
+                  font-extrabold
+                  text-center
+                  shadow-2xl
+                  active:scale-[0.99]
+                "
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <span>📞</span>
+                  <span>JETZT NOTDIENST ANRUFEN</span>
+                </div>
+                <div className="text-2xl tracking-wide mt-1">030-23323873</div>
+                <div className="text-xs font-semibold opacity-90 mt-1">
+                  Sofort erreichbar · Rückruf in 5 Minuten
+                </div>
+              </a>
+
+              {/* ✅ Trust unter CTA – symmetrisch 2x2 */}
+              <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 text-[12px] sm:text-sm text-white/90">
+                <div className="flex items-center gap-2">
+                  <span>✅</span> Transparente Festpreise
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>✅</span> Keine versteckten Kosten
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>✅</span> Keine Vermittlung
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>✅</span> Regionaler Fachbetrieb
+                </div>
+              </div>
+
+              <a
+                href="#contact"
+                className="
+                  block w-full mt-4
+                  bg-white/10 text-blue-200
+                  border border-white/20
+                  rounded-2xl
+                  px-6 py-3
+                  font-semibold
+                  text-center
+                "
+              >
+                Online Termin &amp; Angebot
+              </a>
+            </div>
+
             {/* Beschreibung */}
-            <p className="text-lg sm:text-xl text-gray-300 mb-6 leading-relaxed max-w-xl">
-              Verstopfte Rohre, Überschwemmung oder übler Geruch? Wir kommen
-              schnell, arbeiten sauber und nennen Ihnen den Preis vorab – ohne
-              versteckte Kosten.
+            <p className="text-lg sm:text-xl text-gray-300 mt-6 mb-6 leading-relaxed max-w-xl">
+              Verstopfte Rohre, Überschwemmung oder übler Geruch? Wir kommen schnell,
+              arbeiten sauber und nennen Ihnen den Preis vorab – ohne versteckte Kosten.
             </p>
 
             {/* Bullet-Liste */}
@@ -291,15 +329,13 @@ function HeroSection() {
               <li>• In 30–60 Min. meist vor Ort*</li>
             </ul>
 
-            {/* LIVE-AKTIVITÄT */}
+            {/* Live Activity */}
             <div className="mb-6">
               <LiveActivityBar />
             </div>
 
-            {/* 👉 CTA-BEREICH */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-4">
-
-              {/* ⭐ PRIMÄRER CALL-CTA */}
+            {/* ✅ Desktop CTA */}
+            <div className="hidden md:flex flex-col sm:flex-row gap-4 mb-4">
               <a
                 id="hero-call"
                 href="tel:030-23323873"
@@ -309,39 +345,23 @@ function HeroSection() {
                   hover:from-blue-700 hover:to-blue-600
                   text-white px-10 py-5
                   rounded-2xl font-bold
-                  transition-all shadow-xl hover:shadow-2xl hover:scale-[1.05]
+                  transition-all shadow-xl hover:shadow-2xl hover:scale-[1.03]
                   flex flex-col items-center justify-center
                   border border-blue-400/40
                   text-center
-                  animate-cta-glow
                   sm:min-w-[260px]
                 "
               >
-                {/* Live Badge */}
-                <span
-                  className="
-                    absolute -top-3 left-4
-                    text-[10px] font-semibold tracking-[0.16em] uppercase
-                    bg-emerald-500 text-white px-2 py-0.5 rounded-full shadow-sm
-                  "
-                >
+                <span className="absolute -top-3 left-4 text-[10px] font-semibold tracking-[0.16em] uppercase bg-emerald-500 text-white px-2 py-0.5 rounded-full shadow-sm">
                   • Jetzt erreichbar
                 </span>
-
-                <span className="text-sm font-semibold opacity-90 mt-1">
-                  Notdienst anrufen:
-                </span>
-
-                <span className="text-2xl font-extrabold tracking-wide mt-1">
-                  030-23323873
-                </span>
-
+                <span className="text-sm font-semibold opacity-90 mt-1">Notdienst anrufen:</span>
+                <span className="text-2xl font-extrabold tracking-wide mt-1">030-23323873</span>
                 <span className="text-[11px] opacity-80 mt-1">
                   kostenlose Beratung · Rückruf in 5&nbsp;Minuten
                 </span>
               </a>
 
-              {/* ⭐ SEKUNDÄRER CTA */}
               <a
                 href="#contact"
                 className="
@@ -360,71 +380,65 @@ function HeroSection() {
                 "
               >
                 <span className="leading-tight">Online Termin &amp; Angebot</span>
-                <span className="text-xs opacity-80 mt-1">
-                  Antwort innerhalb von wenigen Minuten
-                </span>
+                <span className="text-xs opacity-80 mt-1">Antwort innerhalb von wenigen Minuten</span>
               </a>
             </div>
           </div>
 
-{/* ================================
-    RECHTER BEREICH – AUTO + BEWERTUNG
-================================= */}
-<div className="relative flex flex-col items-end gap-4">
-  {/* Auto + angedocktes Badge */}
-  <div className="relative w-full flex justify-center lg:justify-end">
-    <div className="relative inline-block lg:animate-float">
-      {/* 🚐 AUTO */}
-      <img
-        src={auto2}
-        alt="ExpertRohr Einsatzfahrzeug"
-        className="
-          w-[420px] sm:w-[340px] md:w-[460px]
-          lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
-          max-w-none object-contain
-          drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
-          -mt-2
-          translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
-        "
-      />
+          {/* RIGHT */}
+          <div className="relative flex flex-col items-end gap-4">
+            <div className="relative w-full flex justify-center lg:justify-end">
+              <div className="relative inline-block lg:animate-float">
+                <img
+                  src={auto2}
+                  alt="ExpertRohr Einsatzfahrzeug"
+                  className="
+                    w-[320px] sm:w-[420px] md:w-[520px]
+                    lg:w-[760px] xl:w-[860px] 2xl:w-[920px]
+                    max-w-none object-contain
+                    drop-shadow-[0_18px_45px_rgba(0,0,0,0.55)]
+                    mt-6 lg:mt-0
+                    translate-x-0 lg:translate-x-[80px] xl:translate-x-[200px]
+                  "
+                />
 
-{/* ⭐ GOOGLE-BADGE – GROß, AM AUTO ANGEDOCKT */}
-<div
-  className="
-    absolute
-    bottom-[-18px] right-[14%]
-    sm:bottom-[-24px] sm:right-[22%]
-    lg:bottom-[-26px] lg:right-[26%]
-    flex items-center gap-4
-    bg-slate-900/95 backdrop-blur-xl
-    border border-yellow-400/60
-    rounded-3xl
-    px-6 py-4
-    shadow-[0_0_35px_rgba(234,179,8,0.35)]
-    text-slate-100
-    z-20
-  "
->
-  {/* ✅ ECHTES GOOGLE LOGO */}
-  <img
-    src={googleLogo}
-    alt="Google Bewertungen"
-    className="w-10 h-10 sm:w-11 sm:h-11 object-contain"
-  />
-
-  {/* ✅ Bewertungs-Text */}
-  <div className="flex flex-col leading-tight">
-    <span className="font-bold text-lg sm:text-xl flex items-center gap-2">
-      4,9 / 5,0
-      <span className="text-yellow-400 text-sm sm:text-base">★★★★★</span>
-    </span>
-    <span className="text-xs sm:text-sm text-slate-300">
-      120+ echte Google-Bewertungen
-          </span>        </div>
-      </div>
-    </div>
-  </div>
+                {/* Google Badge */}
+                <div
+                  className="
+                    absolute
+                    bottom-[-18px] right-[10%]
+                    sm:bottom-[-22px] sm:right-[18%]
+                    lg:bottom-[-26px] lg:right-[26%]
+                    flex items-center gap-4
+                    bg-slate-900/95 backdrop-blur-xl
+                    border border-yellow-400/60
+                    rounded-3xl
+                    px-5 py-4
+                    shadow-[0_0_35px_rgba(234,179,8,0.35)]
+                    text-slate-100
+                    z-20
+                  "
+                >
+                  <img
+                    src={googleLogo}
+                    alt="Google Bewertungen"
+                    className="w-10 h-10 sm:w-11 sm:h-11 object-contain"
+                  />
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-bold text-lg sm:text-xl flex items-center gap-2">
+                      4,9 / 5,0{" "}
+                      <span className="text-yellow-400 text-sm sm:text-base">★★★★★</span>
+                    </span>
+                    <span className="text-xs sm:text-sm text-slate-300">
+                      120+ echte Google-Bewertungen
+                    </span>
+                  </div>
+                </div>
+                {/* /Google Badge */}
+              </div>
+            </div>
           </div>
+          {/* /RIGHT */}
         </div>
       </div>
     </section>
