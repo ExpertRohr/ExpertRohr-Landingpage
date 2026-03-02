@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Toaster } from "sonner";
-import CookieBanner from "./CookieBanner";
 
 /* Bilder */
 import expertRohrLogo from "./assets/ExpertRohr-min.webp";
@@ -2336,7 +2335,7 @@ export default function App() {
       <Toaster />
 
       {/* Cookie Banner */}
-      <CookieBanner />
+      
 
       {/* Inline Style für Animationen & FAQ */}
       <style>
