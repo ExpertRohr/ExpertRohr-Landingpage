@@ -1,66 +1,78 @@
 <!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Tag -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
+    <!-- Google Tag (GA4 + Google Ads) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH706HFHW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag("js", new Date());
 
-    gtag("config", "G-TH706HFHW");      // GA4
-    gtag("config", "AW-17931609279");   // Google Ads
-  </script>
+      // GA4
+      gtag("config", "G-TH706HFHW");
 
-  <!-- Google Ads Call Conversion (React-sicher) -->
-  <script>
-    const SEND_TO = "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC";
+      // Google Ads
+      gtag("config", "AW-17931609279");
+    </script>
 
-    function attachCallTracking() {
-      document.querySelectorAll('a[href^="tel:"]').forEach((link) => {
-        if (link.dataset.tracked) return;
-        link.dataset.tracked = "true";
+    <!-- Google Ads Conversion: Tel-Klick (React-safe) -->
+    <script>
+      // HIER deine Google-Ads Conversion-ID/Label rein:
+      // Google Ads -> Conversions -> (deine Aktion) -> "Tag einrichten" -> "Ereignis-Snippet"
+      // send_to sieht so aus: "AW-17931609279/XXXXXXXXXXXX"
+      const SEND_TO = "AW-17931609279/-jKTCU7Z5fwbEL_JuuZC";
 
-        link.addEventListener("click", function (e) {
-          if (typeof window.gtag !== "function") return;
+      function attachTelClickTracking() {
+        const links = document.querySelectorAll('a[href^="tel:"]');
+        links.forEach((link) => {
+          if (link.dataset.telTracked === "1") return;
+          link.dataset.telTracked = "1";
 
-          const href = link.getAttribute("href");
-          if (!href) return;
+          link.addEventListener("click", function (e) {
+            if (typeof window.gtag !== "function") return;
 
-          e.preventDefault();
+            const href = link.getAttribute("href");
+            if (!href) return;
 
-          let done = false;
-          const proceed = () => {
-            if (done) return;
-            done = true;
-            window.location.href = href;
-          };
+            // iOS/Android: kurz Conversion feuern, dann Tel öffnen
+            e.preventDefault();
 
-          gtag("event", "conversion", {
-            send_to: SEND_TO,
-            event_callback: proceed,
-            event_timeout: 400,
+            let done = false;
+            const proceed = () => {
+              if (done) return;
+              done = true;
+              window.location.href = href;
+            };
+
+            window.gtag("event", "conversion", {
+              send_to: SEND_TO,
+              event_callback: proceed,
+              event_timeout: 500,
+            });
+
+            // Fallback, falls callback nicht kommt
+            setTimeout(proceed, 600);
           });
-
-          setTimeout(proceed, 450);
         });
-      });
-    }
+      }
 
-    // wegen React: regelmäßig prüfen
-    setInterval(attachCallTracking, 1000);
-  </script>
+      // Direkt beim Laden
+      document.addEventListener("DOMContentLoaded", attachTelClickTracking);
 
-  <link rel="stylesheet" href="/src/index.css" />
-  <link rel="icon" type="image/webp" href="/LogoQuadrat.webp" />
-  <title>ExpertRohr – Rohrreinigung Berlin & Brandenburg</title>
-</head>
+      // React/Vite: Elemente können später kommen -> regelmäßig neu anheften
+      setInterval(attachTelClickTracking, 800);
+    </script>
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+    <link rel="stylesheet" href="/src/index.css" />
+    <link rel="icon" type="image/webp" href="/LogoQuadrat.webp" />
+    <title>ExpertRohr – Rohrreinigung Berlin & Brandenburg</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
